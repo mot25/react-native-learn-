@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
+import Input from './UI/Input';
 
 export default function AddTodo({ cb }) {
 
@@ -18,15 +19,7 @@ export default function AddTodo({ cb }) {
 
 
     return <View style={styles.block}>
-        <TextInput
-            onChangeText={setValue}
-            value={value}
-            style={styles.input}
-            placeholder='Enter todo...'
-            autoCorrect={false}// correct word
-            autoCapitalize='none' // большие буквы 
-            keyboardType='default' // type keyboard
-        />
+        <Input placeholder='Enter todo...' changeInt={setValue}  value={value}/>
         <Button
             onPress={pressBtn}
             style={styles.btn}
@@ -41,14 +34,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         height: 50,
         // marginBottom: 20
-    },
-    input: {
-        padding: 10,
-        width: '80%',
-        height: '100%',
-        borderBottomColor: "#434B4D",
-        borderBottomWidth: 3,
-        borderStyle: 'solid'
     },
     btn: {
 
