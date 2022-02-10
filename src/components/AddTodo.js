@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, Button, Keyboard, StyleSheet, TextInput, View } from 'react-native';
+import { AntDesign } from '@expo/vector-icons'
 import Input from './UI/Input';
 
 export default function AddTodo({ cb }) {
@@ -12,6 +13,7 @@ export default function AddTodo({ cb }) {
         if (value.trim()) {
             cb(value)
             setValue('')
+            Keyboard.dismiss()
         } else {
             Alert.alert('value zero')
         }
@@ -19,11 +21,12 @@ export default function AddTodo({ cb }) {
 
 
     return <View style={styles.block}>
-        <Input placeholder='Enter todo...' changeInt={setValue}  value={value}/>
-        <Button
+        <Input placeholder='Enter todo...' changeInt={setValue} value={value} />
+        <AntDesign.Button
+            name='pluscircleo'
             onPress={pressBtn}
-            style={styles.btn}
-            title="Add" />
+            style={styles.btn}>
+        </AntDesign.Button>
     </View>;
 }
 

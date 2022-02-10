@@ -25,6 +25,7 @@ const { navbar, textS } = StyleSheet.create({
     textS: {
         color: '#fff',
         fontSize: 40,
-        paddingBottom: 10
+        paddingTop: 10,
+        fontFamily: 'Quintessential-Regular'
     }
 })

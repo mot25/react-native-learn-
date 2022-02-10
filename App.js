@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { StyleSheet, Text, ScrollView, View, Alert } from 'react-native';
 import * as Font from 'expo-font'
 import MainScreen from './src/screens/MainScreen';
+import AppLoading from 'expo-app-loading';
 import Navbar from './src/components/Navbar'
 import TodoScreen from './src/screens/TodoScreen';
+import { THEME } from './src/theme';
 
 const loadApp = async () => {
   await Font.loadAsync({
@@ -14,6 +16,7 @@ const loadApp = async () => {
 
 export default function App() {
 
+  const [isReady, setisReady] = useState(false)
   const [todoId, setTodoId] = useState(null)
   const [todos, setTodos] = useState([
     { id: 1, title: 'vdsfv1' },
@@ -21,6 +24,14 @@ export default function App() {
     { id: 4, title: 'vdsfv3' },
     { id: 5, title: '25' },
   ])
+
+  if (!isReady) {
+    return <AppLoading
+      startAsync={loadApp}
+      onError={err => console.log(err)}
+      onFinish={() => setisReady(true)}
+    />
+  }
 
   const addTodo = (title) => {
     setTodos((prev) => {
@@ -96,7 +107,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: THEME.PADDING_HORIZONTAL,
     paddingBottom: 50
   },
 });

@@ -21,7 +21,8 @@ export default function Todo({ todo, onDel, onOpen }) {
 const style = StyleSheet.create({
     mainWrapper: {
         width: '100%',
-        paddingBottom: 100
+        paddingBottom: 100,
+        textAlign: 'center'
     },
     wrapper: {
         borderStyle: 'solid',
