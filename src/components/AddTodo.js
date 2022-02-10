@@ -10,7 +10,6 @@ export default function AddTodo() {
     const { addTodo } = useContext(todoContext)
 
     const pressBtn = () => {
-        console.log('value', value)
         if (value.trim()) {
             addTodo(value)
             setValue('')

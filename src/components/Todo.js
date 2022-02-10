@@ -6,7 +6,6 @@ import { todoContext } from './Context/todo/todoContext';
 export default function Todo() {
 
     const { setId } = useContext(ScreenContext)
-    console.log('setId', setId)
     const { todos, onDelContext } = useContext(todoContext)
 
     return <View style={style.mainWrapper}>

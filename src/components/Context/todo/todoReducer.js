@@ -1,5 +1,9 @@
 import React from 'react'
-import { ADD_TODO, UPDATA_TODO, REMOVE_TODO, SET_MODAL } from '../types';
+import {
+    ADD_TODO, UPDATA_TODO, SET_MODAL,
+    REMOVE_TODO, FETCH_TODOS, SHOW_LOADER,
+    HIDE_LOADER, SHOW_ERROR, CLEAR_ERROR
+} from '../types';
 
 export default function reducer(state, action) {
     switch (action.type) {
@@ -24,8 +28,18 @@ export default function reducer(state, action) {
         case REMOVE_TODO:
             return { ...state, todos: state.todos.filter(item => item.id != action.id) };
 
-        case SET_MODAL:
-            return { ...state, modal: action.bool };
+        case FETCH_TODOS:
+            return { ...state, todos: action.todos };
+        case SHOW_LOADER:
+            return { ...state, loading: true };
+        case HIDE_LOADER:
+            return { ...state, loading: false };
+        case SHOW_ERROR:
+            return { ...state, error: action.error };
+        case CLEAR_ERROR:
+            return { ...state, error: null };
+
+
 
         default:
             return state;

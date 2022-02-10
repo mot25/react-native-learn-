@@ -23,22 +23,23 @@ export default function MainScreen() {
     })
 
 
-    let content = <View >
-        <Todo />
-    </View>
 
-
-    if (todos.length < 1) {
-        content = <View style={styles.wrapImage}>
-            <Image
-                style={styles.image}
-                source={require('../../assets/no-items.png.png')}
-            />
-        </View>
-    }
+    console.log('31todos.lenght', todos.length)
+    console.log('32todos', todos)
     return <View>
         <AddTodo />
-        {content}
+        {todos.length < 1 ?
+            <View style={styles.wrapImage}>
+                <Image
+                    style={styles.image}
+                    source={require('../../assets/no-items.png.png')}
+                />
+            </View>
+            :
+            <View >
+                <Todo />
+            </View>
+        }
     </View>;
 }
 
