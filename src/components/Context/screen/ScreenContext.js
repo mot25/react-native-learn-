@@ -1,4 +1,4 @@
 const { createContext } = require("react");
 
 
-export const   = createContext()
+export const ScreenContext = createContext()
