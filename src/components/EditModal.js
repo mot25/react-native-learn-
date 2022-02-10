@@ -1,30 +1,33 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Alert, Button, Modal, StyleSheet, View } from 'react-native'
+import { todoContext } from './Context/todo/todoContext'
 import AppCard from './UI/AppCard'
 import Input from './UI/Input'
 
-export default function EditModal({ visible, onSave, id, visModalNone, value }) {
+export default function EditModal({ saveHandler, value }) {
     const [title, settitle] = useState(value)
+    const { setModal, modal } = useContext(todoContext)
 
-    const saveHandler = () => {
+    const saveHandlerEdit = () => {
         if (title.trim().length < 1) {
             Alert.alert(
                 'Error!',
                 `Error. Min. length word 1 chat. Your lenght ${title.trim().length}`
             )
         } else {
-            console.log('title', title)
-            console.log('id', id)
-            onSave(title)
+            saveHandler(title)
         }
     }
 
     return (
         <Modal
-            visible={visible}
+            visible={modal}
             animationType="fade"
             transparent={false}
-            onRequestClose={visModalNone}
+            onRequestClose={() => {
+                setModal(false)
+                settitle(prev => prev)
+            }}
         >
             <View style={styles.wrap}>
                 <AppCard>
@@ -32,10 +35,13 @@ export default function EditModal({ visible, onSave, id, visModalNone, value }) 
                 </AppCard>
                 <View>
                     <View>
-                        <Button title='Cancel' onPress={visModalNone} />
+                        <Button title='Cancel' onPress={() => {
+                            setModal(false)
+                            settitle(value )
+                        }} />
                     </View>
                     <View>
-                        <Button title='Save' onPress={saveHandler} />
+                        <Button title='Save' onPress={saveHandlerEdit} />
                     </View>
                 </View>
             </View>
@@ -52,12 +58,3 @@ const styles = StyleSheet.create({
     }
 })
 
-{/* <Modal
-animationType="slide"
-transparent={true}
-visible={modalVisible}
-onRequestClose={() => {
-  Alert.alert("Modal has been closed.");
-  setModalVisible(!modalVisible);
-}}
-> */}

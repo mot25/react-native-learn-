@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, FlatList, TouchableOpacity, Text, View } from 'react-native';
+import { ScreenContext } from './Context/screen/ScreenContext';
+import { todoContext } from './Context/todo/todoContext';
 
-export default function Todo({ todo, onDel, onOpen }) {
+export default function Todo() {
+
+    const { setId } = useContext(ScreenContext)
+    console.log('setId', setId)
+    const { todos, onDelContext } = useContext(todoContext)
+
     return <View style={style.mainWrapper}>
-        <FlatList data={todo} renderItem={({ item }) => (
+        <FlatList data={todos} renderItem={({ item }) => (
             <TouchableOpacity
                 activeOpacity={0.2}
-                onPress={() => onOpen(item.id)}
-                onLongPress={() => onDel(item.id)}
+                onPress={() => setId(item.id)}
+                onLongPress={() => onDelContext(item.id)}
             >
                 <View style={style.wrapper}>
                     <Text style={style.text} >{item.title}</Text>

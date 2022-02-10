@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { ScreenContext } from '../components/Context/screen/ScreenContext';
+import { todoContext } from '../components/Context/todo/todoContext';
 import EditModal from '../components/EditModal';
 import AppCard from '../components/UI/AppCard';
 import { THEME } from '../theme';
 
-export default function TodoScreen({ goBack, onDel, onSave, todo }) {
+export default function TodoScreen() {
 
-  const [modal, setModal] = useState(false)
-
+  const { setModal, onDelContext, updateTodos, todos } = useContext(todoContext)
+  const { setId, todoId } = useContext(ScreenContext)
+  let todo = todos.find(item => item.id === todoId)
   const saveHandler = (title) => {
-    onSave(todo.id, title)
+    updateTodos(todo.id, title)
     setModal(false)
   }
   return <View>
     <EditModal
       value={todo.title}
-      visible={modal}
       id={todo.id}
-      onSave={saveHandler}
-      visModalNone={() => setModal(false)}
+      saveHandler={saveHandler}
     />
 
     <AppCard style={styles.card}>
@@ -31,13 +32,13 @@ export default function TodoScreen({ goBack, onDel, onSave, todo }) {
         <Button
           title='Back Todos'
           color={THEME.GRAY_COLOR}
-          onPress={goBack} />
+          onPress={() => setId(null)} />
       </View>
       <View style={styles.wrapperBtn}>
         <Button
           title='Delete task'
           color={THEME.DANGERE_COLOR}
-          onPress={() => onDel(todo.id)} />
+          onPress={() => onDelContext(todo.id)} />
       </View>
     </View>
   </View>

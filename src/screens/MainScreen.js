@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import AddTodo from '../components/AddTodo';
+import { todoContext } from '../components/Context/todo/todoContext';
 import Todo from '../components/Todo';
 import { THEME } from '../theme';
 
-export default function MainScreen({ todos, addTodo, onOpen, onDel }) {
+export default function MainScreen() {
+    const { todos } = useContext(todoContext)
     const [widthDevice, setwidthDevice] = useState(
         Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2
     )
@@ -22,7 +24,7 @@ export default function MainScreen({ todos, addTodo, onOpen, onDel }) {
 
 
     let content = <View >
-        <Todo todo={todos} onOpen={onOpen} onDel={onDel} />
+        <Todo />
     </View>
 
 
@@ -35,7 +37,7 @@ export default function MainScreen({ todos, addTodo, onOpen, onDel }) {
         </View>
     }
     return <View>
-        <AddTodo cb={addTodo} />
+        <AddTodo />
         {content}
     </View>;
 }
